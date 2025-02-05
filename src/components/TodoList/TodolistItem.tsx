@@ -1,4 +1,4 @@
-import {Task} from "../../App.tsx";
+import {FilterValues, Task} from "../../App.tsx";
 import './TodolistItem.scss'
 import Button from "../Button/Button.tsx";
 
@@ -6,9 +6,10 @@ type TodolistItemProps = {
     title: string
     tasks: Task[]
     deleteTask: (taskId: number) => void
+    changeFilter: (filter: FilterValues) => void
 }
 
-const TodolistItem = ({title, tasks, deleteTask}: TodolistItemProps) => {
+const TodolistItem = ({title, tasks, deleteTask, changeFilter}: TodolistItemProps) => {
     return (
         <div className="todoListBody">
             <h3>{title}</h3>
@@ -32,9 +33,9 @@ const TodolistItem = ({title, tasks, deleteTask}: TodolistItemProps) => {
                 )
             }
             <div>
-                <Button title={"All"} />
-                <Button title={"Active"} />
-                <Button title={"Completed"} />
+                <Button title={"All"} onClick={()=>changeFilter('all')}/>
+                <Button title={"Active"} onClick={()=>changeFilter('active')}/>
+                <Button title={"Completed"} onClick={()=>changeFilter('completed')}/>
             </div>
         </div>
     );

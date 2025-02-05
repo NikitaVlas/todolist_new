@@ -5,9 +5,10 @@ import Button from "../Button/Button.tsx";
 type TodolistItemProps = {
     title: string
     tasks: Task[]
+    deleteTask: (taskId: number) => void
 }
 
-const TodolistItem = ({title, tasks}: TodolistItemProps) => {
+const TodolistItem = ({title, tasks, deleteTask}: TodolistItemProps) => {
     return (
         <div className="todoListBody">
             <h3>{title}</h3>
@@ -24,6 +25,7 @@ const TodolistItem = ({title, tasks}: TodolistItemProps) => {
                             <li key={m.id}>
                                 <input type="checkbox" checked={m.isDone}/>
                                 <span>{m.title}</span>
+                                <Button title={"X"} onClick={()=>deleteTask(m.id)}/>
                             </li>
                         ))}
                     </ul>

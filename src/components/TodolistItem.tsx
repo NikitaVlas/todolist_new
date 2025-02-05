@@ -14,14 +14,20 @@ const TodolistItem = ({title, tasks}: TodolistItemProps) => {
                 <input/>
                 <button>+</button>
             </div>
-            <ul>
-                {tasks.map(m => (
-                    <li key={m.id}>
-                        <input type="checkbox" checked={m.isDone}/>
-                        <span>{m.title}</span>
-                    </li>
-                ))}
-            </ul>
+            {
+                tasks.length === 0 ? (
+                    <p>Тасок нет</p>
+                ) : (
+                    <ul>
+                        {tasks.map(m => (
+                            <li key={m.id}>
+                                <input type="checkbox" checked={m.isDone}/>
+                                <span>{m.title}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )
+            }
             <div>
                 <button>All</button>
                 <button>Active</button>

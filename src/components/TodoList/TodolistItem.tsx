@@ -1,5 +1,6 @@
-import {Task} from "../App.tsx";
+import {Task} from "../../App.tsx";
 import './TodolistItem.scss'
+import Button from "../Button/Button.tsx";
 
 type TodolistItemProps = {
     title: string
@@ -29,9 +30,9 @@ const TodolistItem = ({title, tasks}: TodolistItemProps) => {
                 )
             }
             <div>
-                <button>All</button>
-                <button>Active</button>
-                <button>Completed</button>
+                <Button title={"All"} />
+                <Button title={"Active"} />
+                <Button title={"Completed"} />
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import './App.css'
-import TodolistItem from "./components/TodolistItem.tsx";
+import TodolistItem from "./components/TodoList/TodolistItem.tsx";
 
 export type Task = {
     id: number;

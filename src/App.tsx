@@ -21,10 +21,10 @@ function App() {
     ]
 
     return (
-        <>
+        <div className="app">
             <TodolistItem title={"What to learn"} tasks={tasks1}/>
             <TodolistItem title={"Travel"} tasks={tasks2}/>
-        </>
+        </div>
     )
 }
 

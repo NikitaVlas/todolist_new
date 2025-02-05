@@ -1,4 +1,5 @@
 import {Task} from "../App.tsx";
+import './TodolistItem.scss'
 
 type TodolistItemProps = {
     title: string
@@ -7,7 +8,7 @@ type TodolistItemProps = {
 
 const TodolistItem = ({title, tasks}: TodolistItemProps) => {
     return (
-        <div>
+        <div className="todoListBody">
             <h3>{title}</h3>
             <div>
                 <input/>

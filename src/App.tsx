@@ -36,6 +36,11 @@ function App() {
         filteredTasks = tasks.filter(task => task.isDone)
     }
 
+    const createTask = () => {
+        const newTask = {id: v1(), title: 'New task', isDone: false}
+        setTasks([newTask, ...tasks])
+    }
+
     return (
         <div className="app">
             <TodolistItem
@@ -43,6 +48,7 @@ function App() {
                 tasks={filteredTasks}
                 deleteTask={deleteTask}
                 changeFilter={changeFilter}
+                createTask={createTask}
             />
         </div>
     )

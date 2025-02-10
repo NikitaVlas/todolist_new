@@ -7,15 +7,16 @@ type TodolistItemProps = {
     tasks: Task[]
     deleteTask: (taskId: string) => void
     changeFilter: (filter: FilterValues) => void
+    createTask: () => void
 }
 
-const TodolistItem = ({title, tasks, deleteTask, changeFilter}: TodolistItemProps) => {
+const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: TodolistItemProps) => {
     return (
         <div className="todoListBody">
             <h3>{title}</h3>
             <div>
                 <input/>
-                <button>+</button>
+                <Button title={"+"} onClick={createTask}/>
             </div>
             {
                 tasks.length === 0 ? (

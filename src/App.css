@@ -3,3 +3,11 @@
     display: flex;
     justify-content: center;
 }
+
+.error {
+    border: red 1px solid;
+}
+
+.error-message {
+    color: red;
+}

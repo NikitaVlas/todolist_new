@@ -14,9 +14,11 @@ type TodolistItemProps = {
 
 const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, changeTaskStatus}: TodolistItemProps) => {
     const [taskTitle, setTaskTitle] = useState('')
+    const [error, setError] = useState<string | null>(null)
 
     const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTaskTitle(event.currentTarget.value)
+        setError(null)
     }
 
     const onKeyDownEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -30,6 +32,8 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, chang
         if (taskTitle.trim() !== '') {
             createTask(trimmedTitle)
             setTaskTitle('')
+        } else {
+            setError('Title is required')
         }
     }
 
@@ -42,11 +46,13 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, chang
         <div className="todoListBody">
             <h3>{title}</h3>
             <div>
-                <input value={taskTitle}
+                <input className={error ? 'error' : ''}
+                       value={taskTitle}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownEnter}
                 />
                 <Button title={'+'} onClick={createTaskHandler}/>
+                {error && <div className={'error-message'}>{error}</div>}
             </div>
             {
                 tasks.length === 0 ? (
@@ -55,18 +61,19 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, chang
                     <ul>
                         {tasks.map(m => (
                             <li key={m.id}>
-                                <input type="checkbox" checked={m.isDone} onChange={(e)=>changeTaskStatusHandler(m.id, e)}/>
+                                <input type="checkbox" checked={m.isDone}
+                                       onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
                                 <span>{m.title}</span>
-                                <Button title={"X"} onClick={()=>deleteTask(m.id)}/>
+                                <Button title={"X"} onClick={() => deleteTask(m.id)}/>
                             </li>
                         ))}
                     </ul>
                 )
             }
             <div>
-                <Button title={"All"} onClick={()=>changeFilter('all')}/>
-                <Button title={"Active"} onClick={()=>changeFilter('active')}/>
-                <Button title={"Completed"} onClick={()=>changeFilter('completed')}/>
+                <Button title={"All"} onClick={() => changeFilter('all')}/>
+                <Button title={"Active"} onClick={() => changeFilter('active')}/>
+                <Button title={"Completed"} onClick={() => changeFilter('completed')}/>
             </div>
         </div>
     );

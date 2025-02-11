@@ -9,9 +9,10 @@ type TodolistItemProps = {
     deleteTask: (taskId: string) => void
     changeFilter: (filter: FilterValues) => void
     createTask: (title: string) => void
+    changeTaskStatus: (taskId: string, isDone: boolean) => void
 }
 
-const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: TodolistItemProps) => {
+const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask, changeTaskStatus}: TodolistItemProps) => {
     const [taskTitle, setTaskTitle] = useState('')
 
     const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -32,6 +33,11 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: Todo
         }
     }
 
+    const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
+        const newStatusValue = e.currentTarget.checked
+        changeTaskStatus(taskId, newStatusValue)
+    }
+
     return (
         <div className="todoListBody">
             <h3>{title}</h3>
@@ -49,7 +55,7 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: Todo
                     <ul>
                         {tasks.map(m => (
                             <li key={m.id}>
-                                <input type="checkbox" checked={m.isDone}/>
+                                <input type="checkbox" checked={m.isDone} onChange={(e)=>changeTaskStatusHandler(m.id, e)}/>
                                 <span>{m.title}</span>
                                 <Button title={"X"} onClick={()=>deleteTask(m.id)}/>
                             </li>

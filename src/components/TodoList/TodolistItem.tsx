@@ -25,8 +25,11 @@ const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: Todo
     }
 
     const createTaskHandler = () => {
-        createTask(taskTitle)
-        setTaskTitle('')
+        const trimmedTitle = taskTitle.trim()
+        if (taskTitle.trim() !== '') {
+            createTask(trimmedTitle)
+            setTaskTitle('')
+        }
     }
 
     return (

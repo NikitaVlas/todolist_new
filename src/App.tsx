@@ -36,8 +36,8 @@ function App() {
         filteredTasks = tasks.filter(task => task.isDone)
     }
 
-    const createTask = () => {
-        const newTask = {id: v1(), title: 'New task', isDone: false}
+    const createTask = (title: string) => {
+        const newTask = {id: v1(), title, isDone: false}
         setTasks([newTask, ...tasks])
     }
 

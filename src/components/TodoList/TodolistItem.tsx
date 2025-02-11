@@ -1,22 +1,34 @@
 import {FilterValues, Task} from "../../App.tsx";
 import './TodolistItem.scss'
 import Button from "../Button/Button.tsx";
+import {ChangeEvent, useState} from "react";
 
 type TodolistItemProps = {
     title: string
     tasks: Task[]
     deleteTask: (taskId: string) => void
     changeFilter: (filter: FilterValues) => void
-    createTask: () => void
+    createTask: (title: string) => void
 }
 
 const TodolistItem = ({title, tasks, deleteTask, changeFilter, createTask}: TodolistItemProps) => {
+    const [taskTitle, setTaskTitle] = useState('')
+
+    const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setTaskTitle(event.currentTarget.value)
+    }
+
+    const createTaskHandler = () => {
+        createTask(taskTitle)
+        setTaskTitle('')
+    }
+
     return (
         <div className="todoListBody">
             <h3>{title}</h3>
             <div>
-                <input/>
-                <Button title={"+"} onClick={createTask}/>
+                <input value={taskTitle} onChange={onChangeTitleHandler}/>
+                <Button title={'+'} onClick={createTaskHandler}/>
             </div>
             {
                 tasks.length === 0 ? (

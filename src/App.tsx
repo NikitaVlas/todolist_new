@@ -29,22 +29,12 @@ function App() {
         {id: v1(), title: 'ReactJS', isDone: false},
     ])
 
-    const [filter, setFilter] = useState<FilterValues>('all')
-
     const deleteTask = (taskId: string) => {
         setTasks(tasks.filter(f => f.id !== taskId))
     }
 
-    const changeFilter = (filter: FilterValues) => {
-        setFilter(filter)
-    }
-
-    let filteredTasks = tasks
-    if (filter === 'active') {
-        filteredTasks = tasks.filter(task => !task.isDone)
-    }
-    if (filter === 'completed') {
-        filteredTasks = tasks.filter(task => task.isDone)
+    const changeFilter = (todolistId: string, filter: FilterValues) => {
+        setTodolists(todolists.map(todolist => todolist.id === todolistId ? { ...todolist, filter } : todolist))
     }
 
     const createTask = (title: string) => {
@@ -60,6 +50,14 @@ function App() {
     return (
         <div className="app">
             {todolists.map(todolist => {
+                let filteredTasks = tasks
+                if (todolist.filter === 'active') {
+                    filteredTasks = tasks.filter(task => !task.isDone)
+                }
+                if (todolist.filter === 'completed') {
+                    filteredTasks = tasks.filter(task => task.isDone)
+                }
+
                 return(
                     <TodolistItem
                         key={todolist.id}

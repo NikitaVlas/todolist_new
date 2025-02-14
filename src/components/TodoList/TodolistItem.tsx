@@ -6,10 +6,10 @@ import React, {ChangeEvent, useState} from "react";
 type TodolistItemProps = {
     todolist: Todolist
     tasks: Task[]
-    deleteTask: (taskId: string) => void
+    deleteTask: (todolistId: string, taskId: string) => void
     changeFilter: (todolistId: string, filter: FilterValues) => void
-    createTask: (title: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
+    createTask: (todolistId: string, title: string) => void
+    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
 
 }
 
@@ -24,14 +24,14 @@ const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeF
 
     const onKeyDownEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            createTaskHandler()
+            createTaskHandler(id)
         }
     }
 
-    const createTaskHandler = () => {
+    const createTaskHandler = (id: string) => {
         const trimmedTitle = taskTitle.trim()
         if (taskTitle.trim() !== '') {
-            createTask(trimmedTitle)
+            createTask(id, trimmedTitle)
             setTaskTitle('')
         } else {
             setError('Title is required')
@@ -40,7 +40,7 @@ const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeF
 
     const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
         const newStatusValue = e.currentTarget.checked
-        changeTaskStatus(taskId, newStatusValue)
+        changeTaskStatus(id, taskId, newStatusValue)
     }
 
     const changeFilterHandler = (filter: FilterValues) => {
@@ -56,7 +56,7 @@ const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeF
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownEnter}
                 />
-                <Button title={'+'} onClick={createTaskHandler}/>
+                <Button title={'+'} onClick={()=>createTaskHandler(id)}/>
                 {error && <div className={'error-message'}>{error}</div>}
             </div>
             {
@@ -69,7 +69,7 @@ const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeF
                                 <input type="checkbox" checked={m.isDone}
                                        onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
                                 <span>{m.title}</span>
-                                <Button title={"X"} onClick={() => deleteTask(m.id)}/>
+                                <Button title={"X"} onClick={() => deleteTask(id, m.id)}/>
                             </li>
                         ))}
                     </ul>

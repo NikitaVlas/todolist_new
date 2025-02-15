@@ -10,10 +10,18 @@ type TodolistItemProps = {
     changeFilter: (todolistId: string, filter: FilterValues) => void
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
-
+    deleteTodolist: (todolistId: string) => void
 }
 
-const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeFilter, createTask, changeTaskStatus}: TodolistItemProps) => {
+const TodolistItem = ({
+                          todolist: {id, title, filter},
+                          tasks,
+                          deleteTask,
+                          changeFilter,
+                          createTask,
+                          changeTaskStatus,
+                          deleteTodolist
+                      }: TodolistItemProps) => {
     const [taskTitle, setTaskTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -47,16 +55,23 @@ const TodolistItem = ({todolist: {id, title, filter}, tasks, deleteTask, changeF
         changeFilter(id, filter)
     }
 
+    const deleteTodolistHandler = () => {
+        deleteTodolist(id)
+    }
+
     return (
         <div className="todoListBody">
-            <h3>{title}</h3>
+            <div className={'container'}>
+                <h3>{title}</h3>
+                <Button title={'x'} onClick={deleteTodolistHandler}/>
+            </div>
             <div>
                 <input className={error ? 'error' : ''}
                        value={taskTitle}
                        onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownEnter}
                 />
-                <Button title={'+'} onClick={()=>createTaskHandler(id)}/>
+                <Button title={'+'} onClick={() => createTaskHandler(id)}/>
                 {error && <div className={'error-message'}>{error}</div>}
             </div>
             {

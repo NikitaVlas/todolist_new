@@ -55,6 +55,9 @@ function App() {
         setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id == taskId ? { ...task, isDone } : task)})
     }
 
+    const deleteTodolist = (todolistId: string) => {
+        setTodolists(todolists.filter(todolist => todolist.id !== todolistId))
+    }
     return (
         <div className="app">
             {todolists.map(todolist => {
@@ -76,6 +79,7 @@ function App() {
                         changeFilter={changeFilter}
                         createTask={createTask}
                         changeTaskStatus={changeTaskStatus}
+                        deleteTodolist={deleteTodolist}
                     />
                 )
             })}

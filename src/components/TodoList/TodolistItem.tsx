@@ -1,7 +1,8 @@
 import {FilterValues, Task, Todolist} from "../../App.tsx";
 import './TodolistItem.scss'
 import Button from "../Button/Button.tsx";
-import React, {ChangeEvent, useState} from "react";
+import {ChangeEvent} from "react";
+import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 
 type TodolistItemProps = {
     todolist: Todolist
@@ -22,28 +23,10 @@ const TodolistItem = ({
                           changeTaskStatus,
                           deleteTodolist
                       }: TodolistItemProps) => {
-    const [taskTitle, setTaskTitle] = useState('')
-    const [error, setError] = useState<string | null>(null)
 
-    const onChangeTitleHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTaskTitle(event.currentTarget.value)
-        setError(null)
-    }
 
-    const onKeyDownEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            createTaskHandler(id)
-        }
-    }
-
-    const createTaskHandler = (id: string) => {
-        const trimmedTitle = taskTitle.trim()
-        if (taskTitle.trim() !== '') {
-            createTask(id, trimmedTitle)
-            setTaskTitle('')
-        } else {
-            setError('Title is required')
-        }
+    const createTaskHandler = (title: string) => {
+        createTask(id, title)
     }
 
     const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
@@ -61,18 +44,13 @@ const TodolistItem = ({
 
     return (
         <div className="todoListBody">
+
             <div className={'container'}>
                 <h3>{title}</h3>
                 <Button title={'x'} onClick={deleteTodolistHandler}/>
             </div>
             <div>
-                <input className={error ? 'error' : ''}
-                       value={taskTitle}
-                       onChange={onChangeTitleHandler}
-                       onKeyDown={onKeyDownEnter}
-                />
-                <Button title={'+'} onClick={() => createTaskHandler(id)}/>
-                {error && <div className={'error-message'}>{error}</div>}
+                <CreateItemForm onCreateItem={createTaskHandler}/>
             </div>
             {
                 tasks.length === 0 ? (

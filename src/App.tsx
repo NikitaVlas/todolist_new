@@ -71,6 +71,10 @@ function App() {
         setTasks({ ...tasks, [todolistId]: [] })
     }
 
+    const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
+        setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId ? { ...task, title } : task)})
+    }
+
     return (
         <div className="app">
             <CreateItemForm onCreateItem={createTodolist}/>
@@ -94,6 +98,7 @@ function App() {
                         createTask={createTask}
                         changeTaskStatus={changeTaskStatus}
                         deleteTodolist={deleteTodolist}
+                        changeTaskTitle={changeTaskTitle}
                     />
                 )
             })}

@@ -45,7 +45,7 @@ const TodolistItem = ({
         deleteTodolist(id)
     }
 
-    const changeTaskTitleHandler = (title: string) => {
+    const changeTaskTitleHandler = (taskId: string, title: string) => {
         changeTaskTitle(id, taskId, title)
     }
 
@@ -69,7 +69,7 @@ const TodolistItem = ({
                                 <input type="checkbox" checked={m.isDone}
                                        onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
                                 <EditableSpan value={m.title}
-                                              onChange={changeTaskTitleHandler}/>
+                                              onChange={(newTitle)=>changeTaskTitleHandler(m.id, newTitle)}/>
                                 <Button title={"X"} onClick={() => deleteTask(id, m.id)}/>
                             </li>
                         ))}

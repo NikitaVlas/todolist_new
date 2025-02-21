@@ -14,7 +14,7 @@ type TodolistItemProps = {
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     deleteTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
-    changeTodolistTitle?: (todolistId: string, title: string) => void
+    changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
 const TodolistItem = ({
@@ -26,7 +26,7 @@ const TodolistItem = ({
                           changeTaskStatus,
                           deleteTodolist,
                           changeTaskTitle,
-                          // changeTodolistTitle
+                          changeTodolistTitle
                       }: TodolistItemProps) => {
 
 
@@ -51,16 +51,16 @@ const TodolistItem = ({
         changeTaskTitle(id, taskId, title)
     }
 
-    // const changeTodolistTitleHandler = (title: string) => {
-    //     changeTodolistTitle(id, title)
-    // }
+    const changeTodolistTitleHandler = (title: string) => {
+        changeTodolistTitle(id, title)
+    }
 
     return (
         <div className="todoListBody">
 
             <div className={'container'}>
                 <h3><EditableSpan value={title}
-                                  // onChange={changeTodolistTitleHandler}
+                                  onChange={changeTodolistTitleHandler}
                 /></h3>
                 <Button title={'x'}
                         onClick={deleteTodolistHandler}

@@ -9,24 +9,24 @@ type TodolistItemProps = {
     todolist: Todolist
     tasks: Task[]
     deleteTask: (todolistId: string, taskId: string) => void
-    changeFilter: (todolistId: string, filter: FilterValues) => void
+    changeFilter?: (todolistId: string, filter: FilterValues) => void
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
-    deleteTodolist: (todolistId: string) => void
+    deleteTodolist?: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
-    changeTodolistTitle: (todolistId: string, title: string) => void
+    changeTodolistTitle?: (todolistId: string, title: string) => void
 }
 
 const TodolistItem = ({
                           todolist: {id, title, filter},
                           tasks,
                           deleteTask,
-                          changeFilter,
+                          // changeFilter,
                           createTask,
                           changeTaskStatus,
-                          deleteTodolist,
+                          // deleteTodolist,
                           changeTaskTitle,
-                          changeTodolistTitle
+                          // changeTodolistTitle
                       }: TodolistItemProps) => {
 
 
@@ -39,28 +39,32 @@ const TodolistItem = ({
         changeTaskStatus(id, taskId, newStatusValue)
     }
 
-    const changeFilterHandler = (filter: FilterValues) => {
-        changeFilter(id, filter)
-    }
+    // const changeFilterHandler = (filter: FilterValues) => {
+    //     changeFilter(id, filter)
+    // }
 
-    const deleteTodolistHandler = () => {
-        deleteTodolist(id)
-    }
+    // const deleteTodolistHandler = () => {
+    //     deleteTodolist(id)
+    // }
 
     const changeTaskTitleHandler = (taskId: string, title: string) => {
         changeTaskTitle(id, taskId, title)
     }
 
-    const changeTodolistTitleHandler = (title: string) => {
-        changeTodolistTitle(id, title)
-    }
+    // const changeTodolistTitleHandler = (title: string) => {
+    //     changeTodolistTitle(id, title)
+    // }
 
     return (
         <div className="todoListBody">
 
             <div className={'container'}>
-                <h3><EditableSpan value={title} onChange={changeTodolistTitleHandler} /></h3>
-                <Button title={'x'} onClick={deleteTodolistHandler}/>
+                <h3><EditableSpan value={title}
+                                  // onChange={changeTodolistTitleHandler}
+                /></h3>
+                <Button title={'x'}
+                        // onClick={deleteTodolistHandler}
+                />
             </div>
             <div>
                 <CreateItemForm onCreateItem={createTaskHandler}/>
@@ -84,13 +88,17 @@ const TodolistItem = ({
             }
             <div>
                 <Button className={filter === 'all' ? 'active-filter' : ''}
-                        title={"All"} onClick={() => changeFilterHandler('all')}/>
+                        title={"All"}
+                        // onClick={() => changeFilterHandler('all')}
+                />
                 <Button className={filter === 'active' ? 'active-filter' : ''}
                         title={"Active"}
-                        onClick={() => changeFilterHandler('active')}/>
+                        // onClick={() => changeFilterHandler('active')}
+                />
                 <Button className={filter === 'completed' ? 'active-filter' : ''}
                         title={"Completed"}
-                        onClick={() => changeFilterHandler('completed')}/>
+                        // onClick={() => changeFilterHandler('completed')}
+                />
             </div>
         </div>
     );

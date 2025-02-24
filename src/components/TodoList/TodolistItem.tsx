@@ -13,7 +13,7 @@ type TodolistItemProps = {
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     deleteTodolist: (todolistId: string) => void
-    changeTaskTitle?: (todolistId: string, taskId: string, title: string) => void
+    changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
 }
 
@@ -25,7 +25,7 @@ const TodolistItem = ({
                           createTask,
                           changeTaskStatus,
                           deleteTodolist,
-                          // changeTaskTitle,
+                          changeTaskTitle,
                           changeTodolistTitle
                       }: TodolistItemProps) => {
 
@@ -47,9 +47,9 @@ const TodolistItem = ({
         deleteTodolist(id)
     }
 
-    // const changeTaskTitleHandler = (taskId: string, title: string) => {
-    //     changeTaskTitle(id, taskId, title)
-    // }
+    const changeTaskTitleHandler = (taskId: string, title: string) => {
+        changeTaskTitle(id, taskId, title)
+    }
 
     const changeTodolistTitleHandler = (title: string) => {
         changeTodolistTitle(id, title)

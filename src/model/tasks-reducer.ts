@@ -4,10 +4,12 @@ import {v1} from "uuid";
 export type DeleteTaskAction = ReturnType<typeof deleteTaskAC>
 export type CreateTaskAction = ReturnType<typeof createTaskAC>
 export type ChangeTaskStatusAction = ReturnType<typeof changeTaskStatusAC>
+export type ChangeTaskTitleAction = ReturnType<typeof changeTaskTitleAC>
 
 type ActionType = DeleteTaskAction |
     CreateTaskAction |
-    ChangeTaskStatusAction
+    ChangeTaskStatusAction |
+    ChangeTaskTitleAction
 
 
 const initialState: TasksState = {}
@@ -22,6 +24,8 @@ export const taskReducer = (state: TasksState = initialState, action: ActionType
         }
         case "CHANGE_TASK":
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(task => task.id == action.payload.taskId ? {...task, isDone: action.payload.isDone} : task)}
+        case "CHANGE_TITLE_TASK":
+            return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(task => task.id === action.payload.taskId ? {...task, title: action.payload.title} : task)}
     }
 }
 
@@ -53,6 +57,17 @@ export const changeTaskStatusAC = (todolistId: string, taskId: string, isDone: b
             todolistId,
             taskId,
             isDone
+        }
+    } as const
+}
+
+export const changeTaskTitleAC = (todolistId: string, taskId: string, title: string) => {
+    return {
+        type: 'CHANGE_TITLE_TASK',
+        payload: {
+            todolistId,
+            taskId,
+            title
         }
     } as const
 }

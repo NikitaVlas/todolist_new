@@ -9,7 +9,7 @@ type TodolistItemProps = {
     todolist: Todolist
     tasks: Task[]
     deleteTask: (todolistId: string, taskId: string) => void
-    changeFilter?: (todolistId: string, filter: FilterValues) => void
+    changeFilter: (todolistId: string, filter: FilterValues) => void
     createTask: (todolistId: string, title: string) => void
     changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
     deleteTodolist: (todolistId: string) => void
@@ -21,7 +21,7 @@ const TodolistItem = ({
                           todolist: {id, title, filter},
                           tasks,
                           deleteTask,
-                          // changeFilter,
+                          changeFilter,
                           createTask,
                           changeTaskStatus,
                           deleteTodolist,
@@ -39,9 +39,9 @@ const TodolistItem = ({
         changeTaskStatus(id, taskId, newStatusValue)
     }
 
-    // const changeFilterHandler = (filter: FilterValues) => {
-    //     changeFilter(id, filter)
-    // }
+    const changeFilterHandler = (filter: FilterValues) => {
+        changeFilter(id, filter)
+    }
 
     const deleteTodolistHandler = () => {
         deleteTodolist(id)
@@ -91,15 +91,15 @@ const TodolistItem = ({
             <div>
                 <Button className={filter === 'all' ? 'active-filter' : ''}
                         title={"All"}
-                        // onClick={() => changeFilterHandler('all')}
+                        onClick={() => changeFilterHandler('all')}
                 />
                 <Button className={filter === 'active' ? 'active-filter' : ''}
                         title={"Active"}
-                        // onClick={() => changeFilterHandler('active')}
+                        onClick={() => changeFilterHandler('active')}
                 />
                 <Button className={filter === 'completed' ? 'active-filter' : ''}
                         title={"Completed"}
-                        // onClick={() => changeFilterHandler('completed')}
+                        onClick={() => changeFilterHandler('completed')}
                 />
             </div>
         </div>

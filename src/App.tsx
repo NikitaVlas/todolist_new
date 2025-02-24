@@ -4,6 +4,7 @@ import {useReducer} from "react";
 import {v1} from "uuid";
 import CreateItemForm from "./components/ItemForm/CreateItemForm.tsx";
 import {
+    changeFilterTodolistAC,
     changeTitleTodolistAC,
     createTodolistAC,
     deleteTodolistAC,
@@ -54,9 +55,9 @@ function App() {
         dispatchTasks(deleteTaskAC(todolistId, taskId))
     }
 
-    // const changeFilter = (todolistId: string, filter: FilterValues) => {
-    //     setTodolists(todolists.map(todolist => todolist.id === todolistId ? { ...todolist, filter } : todolist))
-    // }
+    const changeFilter = (todolistId: string, filter: FilterValues) => {
+        dispatchToTodolists(changeFilterTodolistAC(todolistId, filter))
+    }
 
     const createTask = (todolistId: string, title: string) => {
         const action = createTaskAC(todolistId, title)
@@ -107,7 +108,7 @@ function App() {
                         todolist={todolist}
                         tasks={filteredTasks}
                         deleteTask={deleteTask}
-                        // changeFilter={changeFilter}
+                        changeFilter={changeFilter}
                         createTask={createTask}
                         changeTaskStatus={changeTaskStatus}
                         deleteTodolist={deleteTodolist}

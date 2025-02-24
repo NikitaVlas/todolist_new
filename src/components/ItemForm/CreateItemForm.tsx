@@ -3,12 +3,11 @@ import Button from "../Button/Button.tsx";
 
 
 type Props = {
-    onCreateItem?: (title: string) => void
+    onCreateItem: (title: string) => void
 }
 
-// eslint-disable-next-line no-empty-pattern
 export const CreateItemForm = ({
-                                   // onCreateItem
+                                   onCreateItem
                                }: Props) => {
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -16,7 +15,7 @@ export const CreateItemForm = ({
     const createItemHandler = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle !== '') {
-            // onCreateItem(trimmedTitle)
+            onCreateItem(trimmedTitle)
             setTitle('')
         } else {
             setError('Title is required')

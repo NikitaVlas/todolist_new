@@ -5,11 +5,11 @@ import {v1} from "uuid";
 import CreateItemForm from "./components/ItemForm/CreateItemForm.tsx";
 import {
     changeTitleTodolistAC,
-    // createTodolistAC,
+    createTodolistAC,
     deleteTodolistAC,
     todolistsReducer
 } from "./model/todolists-reducer.ts";
-import {deleteTaskAC, taskReducer} from "./model/tasks-reducer.ts";
+import {createTaskAC, deleteTaskAC, taskReducer} from "./model/tasks-reducer.ts";
 
 export type Task = {
     id: string;
@@ -58,10 +58,10 @@ function App() {
     //     setTodolists(todolists.map(todolist => todolist.id === todolistId ? { ...todolist, filter } : todolist))
     // }
 
-    // const createTask = (todolistId: string, title: string) => {
-    //     const newTask = {id: v1(), title, isDone: false}
-    //     setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
-    // }
+    const createTask = (todolistId: string, title: string) => {
+        const action = createTaskAC(todolistId, title)
+        dispatchTasks(action)
+    }
 
     // const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {
     //     setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id == taskId ? {...task, isDone} : task)})
@@ -71,11 +71,12 @@ function App() {
         dispatchToTodolists(deleteTodolistAC(todolistId))
     }
 
-    // const createTodolist = (title: string) => {
-    //     const action = createTodolistAC(title)
-    //     dispatchToTodolists(action)
+    const createTodolist = (title: string) => {
+        const action = createTodolistAC(title)
+        dispatchToTodolists(action)
+        // dispatchTasks(createTaskAC)
     //     setTasks({...tasks, [action.payload.id]: []})
-    // }
+    }
 
     // const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
     //     setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId ? {...task, title} : task)})
@@ -88,7 +89,7 @@ function App() {
     return (
         <div className="app">
             <CreateItemForm
-                // onCreateItem={createTodolist}
+                onCreateItem={createTodolist}
             />
             {todolists.map(todolist => {
                 const todolistTasks = tasks[todolist.id]
@@ -107,7 +108,7 @@ function App() {
                         tasks={filteredTasks}
                         deleteTask={deleteTask}
                         // changeFilter={changeFilter}
-                        // createTask={createTask}
+                        createTask={createTask}
                         // changeTaskStatus={changeTaskStatus}
                         deleteTodolist={deleteTodolist}
                         // changeTaskTitle={changeTaskTitle}

@@ -2,12 +2,12 @@ import {ChangeEvent, useState} from "react";
 
 type Props = {
     value: string
-    onChange?: (title: string) => void
+    onChange: (title: string) => void
 }
 
 export const EditableSpan = ({
                                  value,
-                                 // onChange
+                                 onChange
 }: Props) => {
     const [isEditMode, setIsEditMode] = useState(false);
     const [title, setTitle] = useState(value)
@@ -18,7 +18,7 @@ export const EditableSpan = ({
 
     const turnOffEditMode = () => {
         setIsEditMode(false)
-        // onChange(title)
+        onChange(title)
     }
 
     const changeTitle = (event: ChangeEvent<HTMLInputElement>) => {

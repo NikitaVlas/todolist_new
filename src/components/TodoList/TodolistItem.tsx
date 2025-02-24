@@ -2,7 +2,7 @@ import {FilterValues, Task, Todolist} from "../../App.tsx";
 import './TodolistItem.scss'
 import Button from "../Button/Button.tsx";
 // import {ChangeEvent} from "react";
-// import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
+import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 import {EditableSpan} from "../EditableSpan/EditableSpan.tsx";
 
 type TodolistItemProps = {
@@ -10,9 +10,9 @@ type TodolistItemProps = {
     tasks: Task[]
     deleteTask: (todolistId: string, taskId: string) => void
     changeFilter?: (todolistId: string, filter: FilterValues) => void
-    createTask?: (todolistId: string, title: string) => void
+    createTask: (todolistId: string, title: string) => void
     changeTaskStatus?: (todolistId: string, taskId: string, isDone: boolean) => void
-    deleteTodolist?: (todolistId: string) => void
+    deleteTodolist: (todolistId: string) => void
     changeTaskTitle?: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
 }
@@ -22,17 +22,17 @@ const TodolistItem = ({
                           tasks,
                           deleteTask,
                           // changeFilter,
-                          // createTask,
+                          createTask,
                           // changeTaskStatus,
-                          // deleteTodolist,
+                          deleteTodolist,
                           // changeTaskTitle,
                           changeTodolistTitle
                       }: TodolistItemProps) => {
 
 
-    // const createTaskHandler = (title: string) => {
-    //     createTask(id, title)
-    // }
+    const createTaskHandler = (title: string) => {
+        createTask(id, title)
+    }
 
     // const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
     //     const newStatusValue = e.currentTarget.checked
@@ -43,9 +43,9 @@ const TodolistItem = ({
     //     changeFilter(id, filter)
     // }
 
-    // const deleteTodolistHandler = () => {
-    //     deleteTodolist(id)
-    // }
+    const deleteTodolistHandler = () => {
+        deleteTodolist(id)
+    }
 
     // const changeTaskTitleHandler = (taskId: string, title: string) => {
     //     changeTaskTitle(id, taskId, title)
@@ -63,11 +63,11 @@ const TodolistItem = ({
                                   onChange={changeTodolistTitleHandler}
                 /></h3>
                 <Button title={'x'}
-                        // onClick={deleteTodolistHandler}
+                        onClick={deleteTodolistHandler}
                 />
             </div>
             <div>
-                {/*<CreateItemForm onCreateItem={createTaskHandler}/>*/}
+                <CreateItemForm onCreateItem={createTaskHandler}/>
             </div>
             {
                 tasks.length === 0 ? (

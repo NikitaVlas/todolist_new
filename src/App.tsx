@@ -10,7 +10,14 @@ import {
     deleteTodolistAC,
     todolistsReducer
 } from "./model/todolists-reducer.ts";
-import {changeTaskStatusAC, changeTaskTitleAC, createTaskAC, deleteTaskAC, taskReducer} from "./model/tasks-reducer.ts";
+import {
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    createTaskAC,
+    createTodolistTasksAC,
+    deleteTaskAC,
+    taskReducer
+} from "./model/tasks-reducer.ts";
 
 export type Task = {
     id: string;
@@ -75,8 +82,7 @@ function App() {
     const createTodolist = (title: string) => {
         const action = createTodolistAC(title)
         dispatchToTodolists(action)
-        // dispatchTasks(createTaskAC)
-    //     setTasks({...tasks, [action.payload.id]: []})
+        dispatchTasks(createTodolistTasksAC(action.payload.id))
     }
 
     const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {

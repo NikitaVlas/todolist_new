@@ -5,12 +5,13 @@ export type DeleteTaskAction = ReturnType<typeof deleteTaskAC>
 export type CreateTaskAction = ReturnType<typeof createTaskAC>
 export type ChangeTaskStatusAction = ReturnType<typeof changeTaskStatusAC>
 export type ChangeTaskTitleAction = ReturnType<typeof changeTaskTitleAC>
+export type CreateTodolistTasksAction = ReturnType<typeof createTodolistTasksAC>
 
 type ActionType = DeleteTaskAction |
     CreateTaskAction |
     ChangeTaskStatusAction |
-    ChangeTaskTitleAction
-
+    ChangeTaskTitleAction |
+    CreateTodolistTasksAction
 
 const initialState: TasksState = {}
 
@@ -26,6 +27,9 @@ export const taskReducer = (state: TasksState = initialState, action: ActionType
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(task => task.id == action.payload.taskId ? {...task, isDone: action.payload.isDone} : task)}
         case "CHANGE_TITLE_TASK":
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(task => task.id === action.payload.taskId ? {...task, title: action.payload.title} : task)}
+        case "CREATE_TODOLIST_TASKS": {
+            return { ...state, [action.payload.id]: [] };
+        }
     }
 }
 
@@ -71,3 +75,12 @@ export const changeTaskTitleAC = (todolistId: string, taskId: string, title: str
         }
     } as const
 }
+
+export const createTodolistTasksAC = (id: string) => {
+    return {
+        type: "CREATE_TODOLIST_TASKS",
+        payload: {
+            id
+        }
+    } as const;
+};

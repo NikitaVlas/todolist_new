@@ -1,4 +1,4 @@
-import {FilterValues, Task, Todolist} from "../../App.tsx";
+import {FilterValues, Task, Todolist} from "../../app/App.tsx";
 import './TodolistItem.scss'
 import Button from "../Button/Button.tsx";
 import {ChangeEvent} from "react";

@@ -1,15 +1,14 @@
 import './App.css'
-import TodolistItem from "./components/TodoList/TodolistItem.tsx";
+import TodolistItem from "../components/TodoList/TodolistItem.tsx";
 import {useReducer} from "react";
-import {v1} from "uuid";
-import CreateItemForm from "./components/ItemForm/CreateItemForm.tsx";
+import CreateItemForm from "../components/ItemForm/CreateItemForm.tsx";
 import {
     changeFilterTodolistAC,
     changeTitleTodolistAC,
     createTodolistAC,
     deleteTodolistAC,
     todolistsReducer
-} from "./model/todolists-reducer.ts";
+} from "../model/todolists-reducer.ts";
 import {
     changeTaskStatusAC,
     changeTaskTitleAC,
@@ -17,7 +16,7 @@ import {
     createTodolistTasksAC,
     deleteTaskAC,
     taskReducer
-} from "./model/tasks-reducer.ts";
+} from "../model/tasks-reducer.ts";
 
 export type Task = {
     id: string;
@@ -35,28 +34,12 @@ export type TasksState = {
     [key: string]: Task[]
 }
 
-const todolistId1 = v1()
-const todolistId2 = v1()
-
 export type FilterValues = 'all' | 'active' | 'completed'
 
 function App() {
-    const [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [
-        {id: todolistId1, title: 'What to learn', filter: 'all'},
-        {id: todolistId2, title: 'What to buy', filter: 'all'},
-    ])
+    const [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [])
 
-    const [tasks, dispatchTasks] = useReducer(taskReducer, {
-        [todolistId1]: [
-            {id: v1(), title: 'HTML&CSS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'ReactJS', isDone: false},
-        ],
-        [todolistId2]: [
-            {id: v1(), title: 'Rest API', isDone: true},
-            {id: v1(), title: 'GraphQL', isDone: false},
-        ],
-    })
+    const [tasks, dispatchTasks] = useReducer(taskReducer, {})
 
     const deleteTask = (todolistId: string, taskId: string) => {
         dispatchTasks(deleteTaskAC(todolistId, taskId))

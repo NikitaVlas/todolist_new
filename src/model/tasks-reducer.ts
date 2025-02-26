@@ -1,4 +1,4 @@
-import {TasksState} from "../App.tsx";
+import {TasksState} from "../app/App.tsx";
 import {v1} from "uuid";
 
 export type DeleteTaskAction = ReturnType<typeof deleteTaskAC>

@@ -21,7 +21,7 @@ export const taskReducer = (state: TasksState = initialState, action: ActionType
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].filter(task => task.id !== action.payload.taskId)}
         case "CREATE_TASK": {
             const newTask = {id: action.payload.taskId, title: action.payload.title, isDone: false}
-            return {...state, [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId]]}
+            return {...state, [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId] || []]}
         }
         case "CHANGE_TASK":
             return {...state, [action.payload.todolistId]: state[action.payload.todolistId].map(task => task.id == action.payload.taskId ? {...task, isDone: action.payload.isDone} : task)}
@@ -30,6 +30,8 @@ export const taskReducer = (state: TasksState = initialState, action: ActionType
         case "CREATE_TODOLIST_TASKS": {
             return { ...state, [action.payload.id]: [] };
         }
+        default:
+            return state
     }
 }
 

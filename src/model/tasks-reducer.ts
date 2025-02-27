@@ -6,6 +6,7 @@ export const deleteTaskAC = createAction<{ id: string, taskId: string }>('tasks/
 export const createTaskAC = createAction('tasks/createTask', (id: string, title: string) => {
     return {payload: {id, title, taskId: nanoid()}}
 })
+export const changeTaskAC = createAction<{ todolistId: string, taskId: string, isDone: boolean }>('tasks/changeTask')
 
 const initialState: TasksState = {}
 
@@ -23,11 +24,19 @@ export const taskReducer = createReducer(initialState, builder => {
         if (!state[action.payload.id]) {
             state[action.payload.id] = []; // Если вдруг тудулиста нет, создаём массив
         }
-        state[action.payload.id].push({
+        state[action.payload.id].unshift({
             id: action.payload.taskId,
             title: action.payload.title,
             isDone: false
         });
+    }).addCase(changeTaskAC, (state, action) => {
+        const tasks = state[action.payload.todolistId]; // Получаем массив задач
+        if (tasks) {
+            const task = tasks.find(task => task.id === action.payload.taskId); // Ищем задачу
+            if (task) {
+                task.isDone = action.payload.isDone; // Меняем статус
+            }
+        }
     })
 })
 

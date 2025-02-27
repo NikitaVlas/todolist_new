@@ -7,6 +7,7 @@ export const createTaskAC = createAction('tasks/createTask', (id: string, title:
     return {payload: {id, title, taskId: nanoid()}}
 })
 export const changeTaskAC = createAction<{ todolistId: string, taskId: string, isDone: boolean }>('tasks/changeTask')
+export const changeTitleTaskAC = createAction<{ todolistId: string, taskId: string, title: string }>('tasks/changeTitleTask')
 
 const initialState: TasksState = {}
 
@@ -35,6 +36,14 @@ export const taskReducer = createReducer(initialState, builder => {
             const task = tasks.find(task => task.id === action.payload.taskId); // Ищем задачу
             if (task) {
                 task.isDone = action.payload.isDone; // Меняем статус
+            }
+        }
+    }).addCase(changeTitleTaskAC, (state, action) => {
+        const tasks = state[action.payload.todolistId]; // Получаем массив задач
+        if (tasks) {
+            const task = tasks.find(task => task.id === action.payload.taskId); // Ищем задачу
+            if (task) {
+                task.title = action.payload.title; // Меняем title
             }
         }
     })

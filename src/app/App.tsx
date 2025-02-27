@@ -9,7 +9,7 @@ import {
 } from "../model/todolists-reducer.ts";
 import {
     changeTaskAC,
-    changeTaskTitleAC, createTaskAC, deleteTaskAC,
+    changeTaskTitleAC, changeTitleTaskAC, createTaskAC, deleteTaskAC,
 } from "../model/tasks-reducer.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
@@ -65,7 +65,7 @@ function App() {
     }
 
     const changeTaskTitle = (todolistId: string, taskId: string, title: string) => {
-        dispatch(changeTaskTitleAC(todolistId, taskId, title))
+        dispatch(changeTitleTaskAC(todolistId, taskId, title))
     }
 
     const changeTodolistTitle = (todolistId: string, title: string) => {

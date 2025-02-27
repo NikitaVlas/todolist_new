@@ -9,9 +9,7 @@ import {
 } from "../model/todolists-reducer.ts";
 import {
     changeTaskStatusAC,
-    changeTaskTitleAC,
-    createTaskAC,
-    deleteTaskAC,
+    changeTaskTitleAC, createTaskAC, deleteTaskAC,
 } from "../model/tasks-reducer.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
@@ -43,7 +41,7 @@ function App() {
     const dispatch = useAppDispatch()
 
     const deleteTask = (todolistId: string, taskId: string) => {
-        dispatch(deleteTaskAC(todolistId, taskId))
+        dispatch(deleteTaskAC({id: todolistId, taskId: taskId}))
     }
 
     const changeFilter = (todolistId: string, filter: FilterValues) => {
@@ -51,8 +49,7 @@ function App() {
     }
 
     const createTask = (todolistId: string, title: string) => {
-        const action = createTaskAC(todolistId, title)
-        dispatch(action)
+        dispatch(createTaskAC(todolistId, title))
     }
 
     const changeTaskStatus = (todolistId: string, taskId: string, isDone: boolean) => {

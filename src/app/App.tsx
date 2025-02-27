@@ -36,10 +36,6 @@ export type TasksState = {
 
 export type FilterValues = 'all' | 'active' | 'completed'
 
-
-
-
-
 function App() {
     const todolists = useAppSelector(selectTodolist)
     const tasks = useAppSelector(selectTasks)
@@ -51,7 +47,7 @@ function App() {
     }
 
     const changeFilter = (todolistId: string, filter: FilterValues) => {
-        dispatch(changeFilterTodolistAC(todolistId, filter))
+        dispatch(changeFilterTodolistAC({id: todolistId, filter}))
     }
 
     const createTask = (todolistId: string, title: string) => {
@@ -64,7 +60,7 @@ function App() {
     }
 
     const deleteTodolist = (todolistId: string) => {
-        dispatch(deleteTodolistAC(todolistId))
+        dispatch(deleteTodolistAC({id: todolistId}))
     }
 
     const createTodolist = (title: string) => {
@@ -76,7 +72,7 @@ function App() {
     }
 
     const changeTodolistTitle = (todolistId: string, title: string) => {
-        dispatch(changeTitleTodolistAC(todolistId, title))
+        dispatch(changeTitleTodolistAC({id: todolistId, title}))
     }
 
     return (

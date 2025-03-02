@@ -17,6 +17,9 @@ import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {selectTodolist} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
+import {AppBar, IconButton, Toolbar} from "@mui/material";
+import Button from "@mui/material/Button";
+import MenuIcon from '@mui/icons-material/Menu'
 
 export type Task = {
     id: string;
@@ -76,6 +79,14 @@ function App() {
 
     return (
         <div className="app">
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton color="inherit">
+                        <MenuIcon />
+                    </IconButton>
+                    <Button color="inherit">Sign in</Button>
+                </Toolbar>
+            </AppBar>
             <CreateItemForm
                 onCreateItem={createTodolist}
             />

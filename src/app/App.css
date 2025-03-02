@@ -1,19 +1,12 @@
 .app {
-    margin: 50px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
 }
 
-.error {
-    border: red 1px solid;
-}
-
-.error-message {
-    color: red;
-}
-
-.active-filter {
-    background-color: lightgreen;
+.container {
+    display: flex;
+    align-items: center;
 }
 
 .is-done {

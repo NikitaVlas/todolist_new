@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import {ChangeEvent} from "react";
 import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 import {EditableSpan} from "../EditableSpan/EditableSpan.tsx";
-import {Checkbox, IconButton} from "@mui/material";
+import {Checkbox, IconButton, List, ListItem} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete'
 
 type TodolistItemProps = {
@@ -79,19 +79,19 @@ const TodolistItem = ({
                 tasks.length === 0 ? (
                     <p>Тасок нет</p>
                 ) : (
-                    <ul>
+                    <List>
                         {tasks.map(m => (
-                            <li key={m.id} className={m.isDone ? 'is-done' : ''}>
-                                <Checkbox checked={m.isDone} onChange={(e) => changeTaskStatusHandler(m.id, e)} />
+                            <ListItem key={m.id} className={m.isDone ? 'is-done' : ''}>
+                                <Checkbox checked={m.isDone} onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
                                 <EditableSpan value={m.title}
                                               onChange={(newTitle) => changeTaskTitleHandler(m.id, newTitle)}
                                 />
                                 <IconButton onClick={() => deleteTaskHandler(m.id)}>
                                     <DeleteIcon/>
                                 </IconButton>
-                            </li>
+                            </ListItem>
                         ))}
-                    </ul>
+                    </List>
                 )
             }
             <div>

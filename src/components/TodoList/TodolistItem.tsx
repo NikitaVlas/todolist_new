@@ -63,7 +63,6 @@ const TodolistItem = ({
 
     return (
         <div className="todoListBody">
-
             <div className={'container'}>
                 <h3><EditableSpan value={title}
                                   onChange={changeTodolistTitleHandler}

@@ -17,7 +17,7 @@ import {useAppSelector} from "../common/hooks/useAppSelector.ts";
 import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {selectTodolist} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
-import {AppBar, IconButton, Toolbar} from "@mui/material";
+import {AppBar, IconButton, Paper, Toolbar} from "@mui/material";
 import Button from "@mui/material/Button";
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
@@ -111,18 +111,20 @@ function App() {
 
                         return (
                             <Grid key={todolist.id}>
-                                <TodolistItem
-                                    key={todolist.id}
-                                    todolist={todolist}
-                                    tasks={filteredTasks}
-                                    deleteTask={deleteTask}
-                                    changeFilter={changeFilter}
-                                    createTask={createTask}
-                                    changeTaskStatus={changeTaskStatus}
-                                    deleteTodolist={deleteTodolist}
-                                    changeTaskTitle={changeTaskTitle}
-                                    changeTodolistTitle={changeTodolistTitle}
-                                />
+                                <Paper>
+                                    <TodolistItem
+                                        key={todolist.id}
+                                        todolist={todolist}
+                                        tasks={filteredTasks}
+                                        deleteTask={deleteTask}
+                                        changeFilter={changeFilter}
+                                        createTask={createTask}
+                                        changeTaskStatus={changeTaskStatus}
+                                        deleteTodolist={deleteTodolist}
+                                        changeTaskTitle={changeTaskTitle}
+                                        changeTodolistTitle={changeTodolistTitle}
+                                    />
+                                </Paper>
                             </Grid>
                         )
                     })}

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import {ChangeEvent} from "react";
 import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 import {EditableSpan} from "../EditableSpan/EditableSpan.tsx";
-import {Checkbox, IconButton, List, ListItem} from "@mui/material";
+import {Box, Checkbox, IconButton, List, ListItem} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete'
 
 type TodolistItemProps = {
@@ -62,8 +62,8 @@ const TodolistItem = ({
     }
 
     return (
-        <div className="todoListBody">
-            <div className={'container'}>
+        <div>
+            <div>
                 <h3><EditableSpan value={title}
                                   onChange={changeTodolistTitleHandler}
                 /></h3>
@@ -80,11 +80,13 @@ const TodolistItem = ({
                 ) : (
                     <List>
                         {tasks.map(m => (
-                            <ListItem key={m.id} className={m.isDone ? 'is-done' : ''}>
+                            <ListItem key={m.id} sx={{p: 0, justifyContent: 'space-between', opacity: m.isDone ? 0.5 : 1}}>
+                                <div>
                                 <Checkbox checked={m.isDone} onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
                                 <EditableSpan value={m.title}
                                               onChange={(newTitle) => changeTaskTitleHandler(m.id, newTitle)}
                                 />
+                                </div>
                                 <IconButton onClick={() => deleteTaskHandler(m.id)}>
                                     <DeleteIcon/>
                                 </IconButton>
@@ -93,7 +95,7 @@ const TodolistItem = ({
                     </List>
                 )
             }
-            <div>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Button variant={filter === 'all' ? 'outlined' : 'text'}
                         color={'inherit'}
                         onClick={() => changeFilterHandler('all')}
@@ -112,7 +114,7 @@ const TodolistItem = ({
                 >
                     Completed
                 </Button>
-            </div>
+            </Box>
         </div>
     );
 };

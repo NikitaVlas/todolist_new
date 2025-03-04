@@ -3,7 +3,7 @@ import Button from '@mui/material/Button'
 import {ChangeEvent} from "react";
 import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 import {EditableSpan} from "../EditableSpan/EditableSpan.tsx";
-import {Box, Checkbox, IconButton, List, ListItem} from "@mui/material";
+import {Box, Checkbox, IconButton, List, ListItem, SxProps} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete'
 
 type TodolistItemProps = {
@@ -16,6 +16,7 @@ type TodolistItemProps = {
     deleteTodolist: (todolistId: string) => void
     changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
     changeTodolistTitle: (todolistId: string, title: string) => void
+    containerSx: SxProps
 }
 
 const TodolistItem = ({
@@ -28,7 +29,9 @@ const TodolistItem = ({
                           deleteTodolist,
                           changeTaskTitle,
                           changeTodolistTitle,
+                          containerSx
                       }: TodolistItemProps) => {
+
 
 
     const createTaskHandler = (title: string) => {
@@ -94,7 +97,7 @@ const TodolistItem = ({
                     </List>
                 )
             }
-            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={containerSx}>
                 <Button variant={filter === 'all' ? 'outlined' : 'text'}
                         color={'inherit'}
                         onClick={() => changeFilterHandler('all')}

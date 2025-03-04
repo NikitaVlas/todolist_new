@@ -18,10 +18,11 @@ import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
 import {selectTodolist} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
 import {AppBar, IconButton, Paper, Toolbar} from "@mui/material";
-import Button from "@mui/material/Button";
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid2'
+import {containerSx} from "../components/TodoList/TodolistItem.styles.ts";
+import {NavButton} from "../components/Button/NavButton.ts";
 
 export type Task = {
     id: string;
@@ -83,14 +84,14 @@ function App() {
         <div className="app">
             <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
-                    <Container maxWidth={'lg'} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Container maxWidth={'lg'} sx={containerSx}>
                         <IconButton color="inherit">
                             <MenuIcon/>
                         </IconButton>
                         <div>
-                            <Button color="inherit">Sign in</Button>
-                            <Button color="inherit">Sign up</Button>
-                            <Button color="inherit">Faq</Button>
+                            <NavButton>Sign in</NavButton>
+                            <NavButton>Sign up</NavButton>
+                            <NavButton background={'dodgerblue'}>Faq</NavButton>
                         </div>
                     </Container>
                 </Toolbar>
@@ -127,6 +128,7 @@ function App() {
                                         deleteTodolist={deleteTodolist}
                                         changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}
+                                        containerSx={containerSx}
                                     />
                                 </Paper>
                             </Grid>

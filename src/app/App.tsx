@@ -83,16 +83,20 @@ function App() {
         <div className="app">
             <AppBar position="static" sx={{ mb: '30px' }}>
                 <Toolbar>
-                    <Container maxWidth={'lg'}>
+                    <Container maxWidth={'lg'} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <IconButton color="inherit">
                             <MenuIcon/>
                         </IconButton>
-                        <Button color="inherit">Sign in</Button>
+                        <div>
+                            <Button color="inherit">Sign in</Button>
+                            <Button color="inherit">Sign up</Button>
+                            <Button color="inherit">Faq</Button>
+                        </div>
                     </Container>
                 </Toolbar>
             </AppBar>
             <Container maxWidth={'lg'}>
-                <Grid container sx={{ mb: '30px' }}>
+                <Grid container sx={{mb: '30px'}}>
                     <CreateItemForm
                         onCreateItem={createTodolist}
                     />

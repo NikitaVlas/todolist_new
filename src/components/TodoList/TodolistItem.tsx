@@ -1,5 +1,4 @@
 import {FilterValues, Task, Todolist} from "../../app/App.tsx";
-import './TodolistItem.scss'
 import Button from '@mui/material/Button'
 import {ChangeEvent} from "react";
 import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
@@ -28,7 +27,7 @@ const TodolistItem = ({
                           changeTaskStatus,
                           deleteTodolist,
                           changeTaskTitle,
-                          changeTodolistTitle
+                          changeTodolistTitle,
                       }: TodolistItemProps) => {
 
 

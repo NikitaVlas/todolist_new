@@ -14,7 +14,7 @@ import {
     deleteTaskAC,
 } from "../model/tasks-reducer.ts";
 import {useAppSelector} from "../common/hooks/useAppSelector.ts";
-import {useAppDispatch} from "../common/hooks/useAppDispatch.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 import {selectTodolist} from "../model/todolists-selectors.ts";
 import {selectTasks} from "../model/tasks-selectors.ts";
 import {AppBar, IconButton, Paper, Toolbar} from "@mui/material";

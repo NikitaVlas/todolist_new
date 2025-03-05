@@ -1,12 +1,8 @@
-import {ChangeEvent} from 'react';
-import {Checkbox, IconButton, List, ListItem} from "@mui/material";
-import {EditableSpan} from "@/components/EditableSpan/EditableSpan.tsx";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {changeTaskAC, changeTitleTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
-import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {List} from "@mui/material";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {selectTasks} from "@/model/tasks-selectors.ts";
 import {Todolist} from "@/app/App.tsx";
+import TaskItem from "@/TaskItem.tsx";
 
 type Props = {
     todolist: Todolist
@@ -15,7 +11,7 @@ type Props = {
 const Tasks = ({todolist}: Props) => {
     const {id, filter} = todolist
     const tasks = useAppSelector(selectTasks)
-    const dispatch = useAppDispatch()
+
 
     const todolistTasks = tasks[id] || []
     let filteredTasks = todolistTasks
@@ -27,18 +23,7 @@ const Tasks = ({todolist}: Props) => {
         filteredTasks = todolistTasks.filter(task => task.isDone)
     }
 
-    const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
-        const newStatusValue = e.currentTarget.checked
-        dispatch(changeTaskAC({todolistId: id, taskId, isDone: newStatusValue}))
-    }
 
-    const deleteTaskHandler = (taskId: string) => {
-        dispatch(deleteTaskAC({id: id, taskId: taskId}))
-    }
-
-    const changeTaskTitleHandler = (taskId: string, title: string) => {
-        dispatch(changeTitleTaskAC({todolistId: id, taskId, title}))
-    }
     return (
         <>
             {
@@ -46,19 +31,10 @@ const Tasks = ({todolist}: Props) => {
                     <p>Тасок нет</p>
                 ) : (
                     <List>
-                        {filteredTasks.map(m => (
-                            <ListItem key={m.id}
-                                      sx={{p: 0, justifyContent: 'space-between', opacity: m.isDone ? 0.5 : 1}}>
-                                <div>
-                                    <Checkbox checked={m.isDone} onChange={(e) => changeTaskStatusHandler(m.id, e)}/>
-                                    <EditableSpan value={m.title}
-                                                  onChange={(newTitle) => changeTaskTitleHandler(m.id, newTitle)}
-                                    />
-                                </div>
-                                <IconButton onClick={() => deleteTaskHandler(m.id)}>
-                                    <DeleteIcon/>
-                                </IconButton>
-                            </ListItem>
+                        {filteredTasks.map(task => (
+                            <TaskItem key={task.id}
+                            task={task}
+                            todolistId={id}/>
                         ))}
                     </List>
                 )

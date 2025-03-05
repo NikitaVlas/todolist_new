@@ -11,8 +11,6 @@ const Todolist = () => {
     return (
         <>
             {todolists.map(todolist => {
-
-
                 return (
                     <Grid key={todolist.id}>
                         <Paper sx={{ p: '0 20px 20px 20px' }}>

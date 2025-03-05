@@ -1,11 +1,9 @@
-import {TasksState} from "../app/App.tsx";
+import {Task, TasksState} from "../app/App.tsx";
 import {createAction, createReducer, nanoid} from "@reduxjs/toolkit";
 import {createTodolistAC, deleteTodolistAC} from "./todolists-reducer.ts";
 
 export const deleteTaskAC = createAction<{ id: string, taskId: string }>('tasks/deleteTask')
-export const createTaskAC = createAction('tasks/createTask', (id: string, title: string) => {
-    return {payload: {id, title, taskId: nanoid()}}
-})
+export const createTaskAC = createAction<{todolistId: string, title: string}>('tasks/createTask')
 export const changeTaskAC = createAction<{ todolistId: string, taskId: string, isDone: boolean }>('tasks/changeTask')
 export const changeTitleTaskAC = createAction<{ todolistId: string, taskId: string, title: string }>('tasks/changeTitleTask')
 
@@ -22,14 +20,8 @@ export const taskReducer = createReducer(initialState, builder => {
             state[action.payload.id] = state[action.payload.id].filter(task => task.id !== action.payload.taskId);
         }
     }).addCase(createTaskAC, (state, action) => {
-        if (!state[action.payload.id]) {
-            state[action.payload.id] = []; // Если вдруг тудулиста нет, создаём массив
-        }
-        state[action.payload.id].unshift({
-            id: action.payload.taskId,
-            title: action.payload.title,
-            isDone: false
-        });
+        const newTask: Task = {title: action.payload.title, isDone: false, id: nanoid()}
+        state[action.payload.todolistId].unshift(newTask)
     }).addCase(changeTaskAC, (state, action) => {
         const tasks = state[action.payload.todolistId]; // Получаем массив задач
         if (tasks) {

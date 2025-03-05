@@ -1,66 +1,66 @@
-import {FilterValues, Task, Todolist} from "../../app/App.tsx";
+import {FilterValues, Todolist} from "../../app/App.tsx";
 import Button from '@mui/material/Button'
 import {ChangeEvent} from "react";
 import CreateItemForm from "../ItemForm/CreateItemForm.tsx";
 import {EditableSpan} from "../EditableSpan/EditableSpan.tsx";
 import {Box, Checkbox, IconButton, List, ListItem, SxProps} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete'
+import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
+import {selectTasks} from "@/model/tasks-selectors.ts";
+import {changeTaskAC, changeTitleTaskAC, createTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
+import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
+import {changeFilterTodolistAC, changeTitleTodolistAC, deleteTodolistAC} from "@/model/todolists-reducer.ts";
 
 type TodolistItemProps = {
     todolist: Todolist
-    tasks: Task[]
-    deleteTask: (todolistId: string, taskId: string) => void
-    changeFilter: (todolistId: string, filter: FilterValues) => void
-    createTask: (todolistId: string, title: string) => void
-    changeTaskStatus: (todolistId: string, taskId: string, isDone: boolean) => void
-    deleteTodolist: (todolistId: string) => void
-    changeTaskTitle: (todolistId: string, taskId: string, title: string) => void
-    changeTodolistTitle: (todolistId: string, title: string) => void
     containerSx: SxProps
 }
 
 const TodolistItem = ({
                           todolist: {id, title, filter},
-                          tasks,
-                          deleteTask,
-                          changeFilter,
-                          createTask,
-                          changeTaskStatus,
-                          deleteTodolist,
-                          changeTaskTitle,
-                          changeTodolistTitle,
                           containerSx
                       }: TodolistItemProps) => {
 
+    const tasks = useAppSelector(selectTasks)
+    const dispatch = useAppDispatch()
+    const todolistTasks = tasks[id] || []
+    let filteredTasks = todolistTasks
+
+    if (filter === 'active') {
+        filteredTasks = todolistTasks.filter(task => !task.isDone)
+    }
+    if (filter === 'completed') {
+        filteredTasks = todolistTasks.filter(task => task.isDone)
+    }
 
 
-    const createTaskHandler = (title: string) => {
-        createTask(id, title)
+    const createTaskHandler = ( title: string) => {
+        dispatch(createTaskAC({todolistId: id, title}))
     }
 
     const changeTaskStatusHandler = (taskId: string, e: ChangeEvent<HTMLInputElement>) => {
         const newStatusValue = e.currentTarget.checked
-        changeTaskStatus(id, taskId, newStatusValue)
+        dispatch(changeTaskAC({todolistId: id, taskId, isDone: newStatusValue}))
     }
 
     const changeFilterHandler = (filter: FilterValues) => {
-        changeFilter(id, filter)
+        dispatch(changeFilterTodolistAC({id: id, filter}))
     }
 
     const deleteTodolistHandler = () => {
-        deleteTodolist(id)
+        dispatch(deleteTodolistAC({id: id}))
     }
 
     const deleteTaskHandler = (taskId: string) => {
-        deleteTask(id, taskId)
+        dispatch(deleteTaskAC({id: id, taskId: taskId}))
     }
 
     const changeTaskTitleHandler = (taskId: string, title: string) => {
-        changeTaskTitle(id, taskId, title)
+        dispatch(changeTitleTaskAC({todolistId: id, taskId, title}))
     }
 
     const changeTodolistTitleHandler = (title: string) => {
-        changeTodolistTitle(id, title)
+        dispatch(changeTitleTodolistAC({id: id, title}))
     }
 
     return (
@@ -77,11 +77,11 @@ const TodolistItem = ({
                 <CreateItemForm onCreateItem={createTaskHandler}/>
             </div>
             {
-                tasks.length === 0 ? (
+                filteredTasks.length === 0 ? (
                     <p>Тасок нет</p>
                 ) : (
                     <List>
-                        {tasks.map(m => (
+                        {filteredTasks.map(m => (
                             <ListItem key={m.id} sx={{p: 0, justifyContent: 'space-between', opacity: m.isDone ? 0.5 : 1}}>
                                 <div>
                                 <Checkbox checked={m.isDone} onChange={(e) => changeTaskStatusHandler(m.id, e)}/>

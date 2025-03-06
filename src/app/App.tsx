@@ -1,5 +1,5 @@
 import './App.css'
-import Header from "@/Header.tsx";
+import Header from "@/features/todolists/ui/Header/Header.tsx";
 import Main from "@/app/Main.tsx";
 import {getTheme} from "@/common/theme/theme.ts";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";

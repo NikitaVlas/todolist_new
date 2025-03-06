@@ -1,8 +1,6 @@
 import {AppBar, IconButton, Switch, Toolbar} from "@mui/material";
 import Container from "@mui/material/Container";
-import {containerSx} from "@/components/TodoList/TodolistItem.styles.ts";
-
-import {NavButton} from "@/components/Button/NavButton.ts";
+import {NavButton} from "@/components/NavButton/NavButton.ts";
 import {changeThemeModeAC} from "@/app/app-reducer.ts";
 import {useAppSelector} from "@/common/hooks/useAppSelector.ts";
 import {selectThemeMode} from "@/app/app-selectors.ts";
@@ -12,17 +10,6 @@ const Header = () => {
     const themeMode = useAppSelector(selectThemeMode)
     const dispatch = useAppDispatch()
 
-
-
-    // const theme = createTheme({
-    //     palette: {
-    //         mode: themeMode,
-    //         primary: {
-    //             main: '#087EA4',
-    //         },
-    //     },
-    // })
-
     const changeMode = () => {
         dispatch(changeThemeModeAC({themeMode: themeMode === 'light' ? 'dark' : 'light'}))
     }
@@ -30,7 +17,7 @@ const Header = () => {
     return (
         <AppBar position="static" sx={{ mb: '30px' }}>
             <Toolbar>
-                <Container maxWidth={'lg'} sx={containerSx}>
+                <Container maxWidth={'lg'} >
                     <IconButton color="inherit">
                         {/*<MenuIcon/>*/}
                     </IconButton>

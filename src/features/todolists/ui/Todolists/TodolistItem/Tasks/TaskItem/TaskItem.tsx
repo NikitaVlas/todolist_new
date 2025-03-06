@@ -2,7 +2,7 @@ import {Checkbox, IconButton, ListItem} from "@mui/material";
 import {EditableSpan} from "@/components/EditableSpan/EditableSpan.tsx";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {ChangeEvent} from "react";
-import {changeTaskAC, changeTitleTaskAC, deleteTaskAC} from "@/model/tasks-reducer.ts";
+import {changeTaskAC, changeTitleTaskAC, deleteTaskAC} from "@/features/todolists/model/tasks-reducer.ts";
 import {Task} from "@/app/App.tsx";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 

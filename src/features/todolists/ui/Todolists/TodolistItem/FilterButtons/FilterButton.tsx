@@ -1,7 +1,7 @@
 import {Box, SxProps} from "@mui/material";
 import Button from "@mui/material/Button";
 import {FilterValues, Todolist} from "@/app/App.tsx";
-import {changeFilterTodolistAC} from "@/model/todolists-reducer.ts";
+import {changeFilterTodolistAC} from "@/features/todolists/model/todolists-reducer.ts";
 import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 
 type Props = {

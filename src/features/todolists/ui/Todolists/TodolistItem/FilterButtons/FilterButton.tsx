@@ -6,7 +6,6 @@ import {useAppDispatch} from "@/common/hooks/useAppDispatch.ts";
 
 type Props = {
     todolist: Todolist
-    containerSx: SxProps
 }
 
 const FilterButton = ({todolist, containerSx}: Props) => {

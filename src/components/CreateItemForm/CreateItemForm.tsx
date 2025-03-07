@@ -2,7 +2,6 @@ import {type ChangeEvent, type KeyboardEvent, useState} from 'react'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import {IconButton, TextField} from "@mui/material";
 
-
 type Props = {
     onCreateItem: (title: string) => void
 }

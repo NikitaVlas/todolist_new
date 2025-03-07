@@ -11,8 +11,6 @@ type Props = {
 const Tasks = ({todolist}: Props) => {
     const {id, filter} = todolist
     const tasks = useAppSelector(selectTasks)
-
-
     const todolistTasks = tasks[id] || []
     let filteredTasks = todolistTasks
 
@@ -22,7 +20,6 @@ const Tasks = ({todolist}: Props) => {
     if (filter === 'completed') {
         filteredTasks = todolistTasks.filter(task => task.isDone)
     }
-
 
     return (
         <>

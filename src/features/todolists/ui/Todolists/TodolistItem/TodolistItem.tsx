@@ -11,13 +11,11 @@ type Props = {
 }
 
 const TodolistItem = ({todolist}: Props) => {
-
     const dispatch = useAppDispatch()
 
     const createTaskHandler = (title: string) => {
         dispatch(createTaskAC({todolistId: todolist.id, title}))
     }
-
 
     return (
         <div>
